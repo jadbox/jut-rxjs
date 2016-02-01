@@ -14,7 +14,7 @@ fs.readdirSync('node_modules')
 module.exports = {
     context: __dirname,
     entry: {
-        javascript: path.join(__dirname, 'src', 'index.js')
+        javascript: path.join(__dirname, 'src', 'rx-fetch.js')
     },
     target: 'node',
     resolveLoader: {
@@ -48,6 +48,6 @@ module.exports = {
                              { raw: true, entryOnly: false })
     ],
     externals: nodeModules,
-    devtool: '#eval-source-map',
+    devtool: '#source-map',
     debug: true
 }
