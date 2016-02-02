@@ -14,7 +14,7 @@ fs.readdirSync('node_modules')
 module.exports = {
     context: __dirname,
     entry: {
-        javascript: path.join(__dirname, 'src', 'rx-fetch.js')
+        javascript: path.join(__dirname, 'src', 'jut-rxjs.js')
     },
     target: 'node',
     resolveLoader: {

@@ -209,12 +209,14 @@ require("source-map-support").install();
 	*/
 	
 	// Converts each point element from Jut into a stream obj
+	var viewx = /sink.*|view.*/g;
 	function toPoints() {
 	  //sink0: { options: [Object], type: 'table', data: [Object] }
 	  return this.map(function (x) {
+	    console.log('x', x);
 	    var sinks = _lodash2.default.filter(_lodash2.default.keys(x.output), function (x) {
-	      return x.indexOf('sink') !== -1;
-	    });
+	      return x.match(viewx).length !== 0;
+	    }); // view is new schema
 	    return _lodash2.default.reduce(sinks, function (acc, k) {
 	      var d = x.output[k];
 	      acc[d.type] = _lodash2.default.map(d.data, function (pt) {
