@@ -1,5 +1,7 @@
 # jut-rxjs
 
+Simple Rx library to communicate to the Jut Outrigger service
+
 ## INSTALL
 npm install
 
