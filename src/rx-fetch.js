@@ -38,14 +38,8 @@ module.exports = {
   Client
 }
 
-// Returns a stream of each Jut result
-Client.prototype.run = function(name = './hourlyTagReport_old.juttle', args) {
-  args = args || {};
-
-  const isStoredProc = !programs[name];
-
-  // santize the args
-  args = _.reduce(args, (acc, v, k) => {
+Client.prototype._argsParse = function(args) {
+  return  _.reduce(args, (acc, v, k) => {
     if(typeof v === 'string') acc[k] = v; // TODO: injections, JSON.stringify(v);
     else if( v instanceof moment ) acc[k] = v.utc().format();
     else if(typeof v === 'number') acc[k] = v;
@@ -53,6 +47,16 @@ Client.prototype.run = function(name = './hourlyTagReport_old.juttle', args) {
     else throw new Error('Invalid type on key ' + k)
     return acc;
   }, {});
+}
+
+// Returns a stream of each Jut result
+Client.prototype.run = function(name = './hourlyTagReport_old.juttle', args) {
+  args = args || {};
+
+  const isStoredProc = !programs[name];
+
+  // santize the args
+  args = this._argsParse(args);
   //console.log('args', args)
 
   let response;

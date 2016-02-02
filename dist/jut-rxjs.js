@@ -67,7 +67,7 @@ require("source-map-support").install();
 	
 	var _rxFetch2 = _interopRequireDefault(_rxFetch);
 	
-	var _moment = __webpack_require__(7);
+	var _moment = __webpack_require__(6);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
@@ -75,7 +75,7 @@ require("source-map-support").install();
 	
 	var Rxo = _rx2.default.Observable; // TODO: perhaps remove
 	
-	var fetch = __webpack_require__(6);
+	var fetch = __webpack_require__(7);
 	//var jutClient = require("node-jut");
 	/*
 	var inputs = {
@@ -111,6 +111,14 @@ require("source-map-support").install();
 	  Client: Client
 	};
 	
+	Client.prototype._argsParse = function (args) {
+	  return _lodash2.default.reduce(args, function (acc, v, k) {
+	    if (typeof v === 'string') acc[k] = v; // TODO: injections, JSON.stringify(v);
+	    else if (v instanceof _moment2.default) acc[k] = v.utc().format();else if (typeof v === 'number') acc[k] = v;else if (v && typeof v.toString === 'function') acc[k] = JSON.stringify(v.toString());else throw new Error('Invalid type on key ' + k);
+	    return acc;
+	  }, {});
+	};
+	
 	// Returns a stream of each Jut result
 	Client.prototype.run = function () {
 	  var name = arguments.length <= 0 || arguments[0] === undefined ? './hourlyTagReport_old.juttle' : arguments[0];
@@ -121,11 +129,7 @@ require("source-map-support").install();
 	  var isStoredProc = !programs[name];
 	
 	  // santize the args
-	  args = _lodash2.default.reduce(args, function (acc, v, k) {
-	    if (typeof v === 'string') acc[k] = v; // TODO: injections, JSON.stringify(v);
-	    else if (v instanceof _moment2.default) acc[k] = v.utc().format();else if (typeof v === 'number') acc[k] = v;else if (v && typeof v.toString === 'function') acc[k] = JSON.stringify(v.toString());else throw new Error('Invalid type on key ' + k);
-	    return acc;
-	  }, {});
+	  args = this._argsParse(args);
 	  //console.log('args', args)
 	
 	  var response = undefined;
@@ -272,13 +276,13 @@ require("source-map-support").install();
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = require("isomorphic-fetch");
+	module.exports = require("moment");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = require("moment");
+	module.exports = require("isomorphic-fetch");
 
 /***/ }
 /******/ ])));

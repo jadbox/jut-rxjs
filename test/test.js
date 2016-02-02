@@ -7,6 +7,13 @@ const _ = require('lodash');
 const jutrx = require('../dist/jut-rxjs.js');
 const config = { path: 'http://localhost:8082' };
 
+let inputs1 = {
+  'from:date': moment.utc().day(7).month(0).year(2016).startOf('day').format(),
+  'to:date': moment().utc().day(20).month(0).year(2016).endOf('day'), // as raw moment
+  exchange: 'lkqd',
+   tag: 'lkqd-3246,lkqd-10879' //,lkqd-10879
+};
+
 describe('## jut-rxjs', () => {
   describe('# Query by saved proceedure', () => {
     let client;
@@ -25,13 +32,16 @@ describe('## jut-rxjs', () => {
         })
     })*/
 
+    it('args parsing', function(done) {
+      const result = '{"from:date":"2016-01-07T00:00:00+00:00","to:date":"2016-01-20T23:59:59+00:00","exchange":"lkqd","tag":"lkqd-3246,lkqd-10879"}';
+      const parsed = client._argsParse(inputs1);
+      assert.equal(result, JSON.stringify(parsed));
+      done();
+    })
+
     it('query', function(done) {
       this.timeout(8000);
-      let inputs = {
-        'from:date': moment.utc().subtract(2, 'month').format(),
-        'to:date': moment(), // as raw moment
-        tag: 'lkqd-3246,lkqd-10879' //,lkqd-10879
-      };
+      let inputs = inputs1;
 
       client.run('./hourlyTagReport_old.juttle', inputs )
         .subscribe((result) => {
@@ -40,6 +50,24 @@ describe('## jut-rxjs', () => {
           assert.ok(schemas.length > 1);
           assert.ok(schemas.indexOf('sink0') !== -1);
           assert.ok(schemas.indexOf('sink1') !== -1);
+          //assert.equal(result.rows[0].count, 1)
+          done();
+        }, err => done(err))
+    })
+
+    it('query toPoints', function(done) {
+      this.timeout(8000);
+      let inputs = inputs1;
+
+      client.run('./hourlyTagReport_old.juttle', inputs )
+        .toPoints()
+        .subscribe((result) => {
+          const views = _.keys(result);
+          console.log('result', JSON.stringify(result) );
+          assert.ok(views.length > 1);
+          assert.ok(views.indexOf('timechart') !== -1);
+          assert.ok(views.indexOf('table') !== -1);
+          assert.ok(result.table[0].impressions !== undefined);
           //assert.equal(result.rows[0].count, 1)
           done();
         }, err => done(err))
