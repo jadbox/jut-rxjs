@@ -97,9 +97,8 @@ require("source-map-support").install();
 	
 	var programs = global.JuttleRxPrograms || (global.JuttleRxPrograms = {}); // cache programs
 	
-	function Client(_ref) {
-	  var _ref$path = _ref.path;
-	  var path = _ref$path === undefined ? 'http://localhost:8082' : _ref$path;
+	function Client() {
+	  var path = arguments.length <= 0 || arguments[0] === undefined ? 'http://localhost:8082' : arguments[0];
 	  var opt = arguments.length <= 1 || arguments[1] === undefined ? { debug: false } : arguments[1];
 	
 	  this.debug = opt.debug;
@@ -186,9 +185,9 @@ require("source-map-support").install();
 	  // no-op
 	};
 	
-	Client.prototype._rxResponse = function (service$, _ref2) {
-	  var url = _ref2.url;
-	  var args = _ref2.args;
+	Client.prototype._rxResponse = function (service$, _ref) {
+	  var url = _ref.url;
+	  var args = _ref.args;
 	
 	  if (this.debug) console.log('Loading: ', url, args);
 	
@@ -209,11 +208,12 @@ require("source-map-support").install();
 	*/
 	
 	// Converts each point element from Jut into a stream obj
-	var viewx = /sink.*|view.*/g;
+	var viewx = /sink.*|view.*/g; // support old/new juttle schema
 	function toPoints() {
 	  //sink0: { options: [Object], type: 'table', data: [Object] }
 	  return this.map(function (x) {
-	    console.log('x', x);
+	    if (!x.output) throw new Error('No jut output', x);
+	    //console.log('x',x)
 	    var sinks = _lodash2.default.filter(_lodash2.default.keys(x.output), function (x) {
 	      return x.match(viewx).length !== 0;
 	    }); // view is new schema

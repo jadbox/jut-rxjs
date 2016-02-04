@@ -28,7 +28,7 @@ fetch('http://localhost:8080/api/v0/jobs', {
 
 const programs = global.JuttleRxPrograms || (global.JuttleRxPrograms = {}); // cache programs
 
-function Client({path = 'http://localhost:8082'}, opt = { debug: false }) {
+function Client(path = 'http://localhost:8082', opt = { debug: false }) {
   this.debug = opt.debug;
   this.path = path;
   return this;
@@ -129,11 +129,12 @@ Client.prototype._rxResponse = function (service$, {url, args}) {
 */
 
 // Converts each point element from Jut into a stream obj
-const viewx = /sink.*|view.*/g;
+const viewx = /sink.*|view.*/g; // support old/new juttle schema
 function toPoints() {
   //sink0: { options: [Object], type: 'table', data: [Object] }
   return this.map( x => {
-    console.log('x',x)
+    if(!x.output) throw new Error('No jut output', x);
+    //console.log('x',x)
     const sinks = _.filter(_.keys(x.output), 
       x => x.match(viewx).length !== 0 ); // view is new schema
     return _.reduce(sinks, (acc, k) => {

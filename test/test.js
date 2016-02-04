@@ -5,7 +5,7 @@ const moment = require('moment');
 const _ = require('lodash');
 
 const jutrx = require('../dist/jut-rxjs.js');
-const config = { path: 'http://localhost:8082' };
+const config = 'http://localhost:8082';
 
 let inputs1 = {
   'from:date': moment.utc().day(13).month(0).year(2016).startOf('day').format(),
