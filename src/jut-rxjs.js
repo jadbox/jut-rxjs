@@ -114,6 +114,7 @@ Client.prototype._rxResponse = function (service$, {url, args}) {
 
   service$.juttle = {url, juttleParams: args};
   service$.toPoints = toPoints;
+  Rxo.prototype.toPoints = toPoints;
   return service$;
 };
 
@@ -135,7 +136,7 @@ function toPoints() {
   return this.map( x => {
     if(!x.output) throw new Error('No jut output', x);
     //console.log('x',x)
-    const sinks = _.filter(_.keys(x.output), 
+    const sinks = _.filter(_.keys(x.output),
       x => x.match(viewx).length !== 0 ); // view is new schema
     return _.reduce(sinks, (acc, k) => {
       const d = x.output[k];

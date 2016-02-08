@@ -193,6 +193,7 @@ require("source-map-support").install();
 	
 	  service$.juttle = { url: url, juttleParams: args };
 	  service$.toPoints = toPoints;
+	  Rxo.prototype.toPoints = toPoints;
 	  return service$;
 	};
 	
