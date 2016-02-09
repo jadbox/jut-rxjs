@@ -113,7 +113,8 @@ require("source-map-support").install();
 	Client.prototype._argsParse = function (args) {
 	  return _lodash2.default.reduce(args, function (acc, v, k) {
 	    if (typeof v === 'string') acc[k] = v; // TODO: injections, JSON.stringify(v);
-	    else if (v instanceof _moment2.default) acc[k] = v.utc().format();else if (typeof v === 'number') acc[k] = v;else if (v && typeof v.toString === 'function') acc[k] = JSON.stringify(v.toString());else throw new Error('Invalid type on key ' + k);
+	    else if (v instanceof _moment2.default) acc[k] = v.utc().format();else if (typeof v === 'number') acc[k] = v;else if (v && typeof v.toString === 'function') acc[k] = v; //JSON.stringify(v.toString());
+	      else throw new Error('Invalid type on key ' + k);
 	    return acc;
 	  }, {});
 	};

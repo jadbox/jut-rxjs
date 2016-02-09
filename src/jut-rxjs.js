@@ -43,7 +43,7 @@ Client.prototype._argsParse = function(args) {
     if(typeof v === 'string') acc[k] = v; // TODO: injections, JSON.stringify(v);
     else if( v instanceof moment ) acc[k] = v.utc().format();
     else if(typeof v === 'number') acc[k] = v;
-    else if(v && typeof v.toString === 'function') acc[k] = JSON.stringify(v.toString());
+    else if(v && typeof v.toString === 'function') acc[k] = v; //JSON.stringify(v.toString());
     else throw new Error('Invalid type on key ' + k)
     return acc;
   }, {});
