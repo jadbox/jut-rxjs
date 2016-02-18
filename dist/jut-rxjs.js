@@ -222,7 +222,16 @@ require("source-map-support").install();
 	    return _lodash2.default.reduce(sinks, function (acc, k) {
 	      var d = x.output[k];
 	      //const pts = _.filter(d.data, x => x.type === 'points');
-	      acc[d.type] = d.data || []; //_.flatten(_.map(pts, pt => pt.points));
+	      var concatPoints = function concatPoints(x) {
+	        return _lodash2.default.reduce(x, function (points, x) {
+	          if (x.type === 'points') {
+	            points = points.concat(x.points);
+	          }
+	          return points;
+	        }, []);
+	      };
+	
+	      acc[d.type] = concatPoints(d.data) || []; //_.flatten(_.map(pts, pt => pt.points));
 	      return acc;
 	    }, {});
 	  });
