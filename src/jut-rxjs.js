@@ -140,7 +140,8 @@ function toPoints() {
       x => x.match(viewx).length !== 0 ); // view is new schema
     return _.reduce(sinks, (acc, k) => {
       const d = x.output[k];
-      acc[d.type] = _.map(d.data, pt => pt.point);
+      //const pts = _.filter(d.data, x => x.type === 'points');
+      acc[d.type] = d.data || []; //_.flatten(_.map(pts, pt => pt.points));
       return acc;
     }, {});
   });

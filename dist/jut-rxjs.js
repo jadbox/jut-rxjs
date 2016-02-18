@@ -221,9 +221,8 @@ require("source-map-support").install();
 	    }); // view is new schema
 	    return _lodash2.default.reduce(sinks, function (acc, k) {
 	      var d = x.output[k];
-	      acc[d.type] = _lodash2.default.map(d.data, function (pt) {
-	        return pt.point;
-	      });
+	      //const pts = _.filter(d.data, x => x.type === 'points');
+	      acc[d.type] = d.data || []; //_.flatten(_.map(pts, pt => pt.points));
 	      return acc;
 	    }, {});
 	  });
@@ -232,6 +231,7 @@ require("source-map-support").install();
 	// Converts all juttle protocol tokens into a stream obj
 	function fromProtocol() {}
 	// no-op
+	
 	
 	// returns true if loaded
 	Client.prototype.load = function (url, name) {
