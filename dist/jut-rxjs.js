@@ -1,4 +1,3 @@
-require("source-map-support").install();
 (function(e, a) { for(var i in a) e[i] = a[i]; }(exports, /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -132,7 +131,7 @@ require("source-map-support").install();
 	  args = this._argsParse(args);
 	  //console.log('args', args)
 	
-	  var response = undefined;
+	  var response = void 0;
 	  if (isStoredProc) response = this._sendStoredProceedure(name, args);else response = this._sendProgram(name, args);
 	
 	  return response; // returns raw stream
