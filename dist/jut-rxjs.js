@@ -62,19 +62,15 @@
 	
 	var _http2 = _interopRequireDefault(_http);
 	
-	var _rxFetch = __webpack_require__(5);
-	
-	var _rxFetch2 = _interopRequireDefault(_rxFetch);
-	
-	var _moment = __webpack_require__(6);
+	var _moment = __webpack_require__(5);
 	
 	var _moment2 = _interopRequireDefault(_moment);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Rxo = _rx2.default.Observable; // TODO: perhaps remove
+	var Rxo = _rx2.default.Observable;
 	
-	var fetch = __webpack_require__(7);
+	var fetch = __webpack_require__(6);
 	//var jutClient = require("node-jut");
 	/*
 	var inputs = {
@@ -282,16 +278,10 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = require("rx-fetch");
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
 	module.exports = require("moment");
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = require("isomorphic-fetch");
