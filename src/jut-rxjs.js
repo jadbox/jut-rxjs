@@ -4,7 +4,6 @@ const Rxo = Rx.Observable;
 import fs from 'fs';
 import _ from 'lodash';
 import http from 'http';
-import rxfetch from 'rx-fetch'; // TODO: perhaps remove
 import moment from 'moment';
 const fetch = require('isomorphic-fetch');
 //var jutClient = require("node-jut");
