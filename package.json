@@ -1,6 +1,6 @@
 {
   "name": "jut-rxjs",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Rx wrapper for Juttle outrigger server",
   "scripts": {
     "start": "node dist/jut-rxjs.js",
